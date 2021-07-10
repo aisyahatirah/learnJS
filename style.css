@@ -4,7 +4,8 @@
   }
 
 body {
-    background-image: url("img/bg.jpg");
+    /* background-image: url("img/bg.jpg");
+    background-size: cover; */
     font-family: pixel;
     
 }
@@ -86,4 +87,29 @@ span {
     font-family: pixel;
     cursor: pointer;
     padding: 5px 8px;
+}
+
+#card-3 {
+    color: white;
+    border: 5px solid #231636;
+    background-image: url("img/table.jpg");
+    background-size: cover;
+}
+
+#card-3 button {
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: goldenrod;
+    color: green;
+    font-weight: bolder;
+    font-family: pixel;
+    width: 200px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+#card-4 {
+    background-color: pink;
+    border: 5px solid rosybrown;
 }

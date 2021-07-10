@@ -1,65 +1,3 @@
-
-// grab element
-// document.getElementById("count-el").innerText = 5
-
-// variables 
-// let username = "Aisyah"
-// let myAge = 21
-// console.log(myAge)
-// console.log(username)
-
-// variables and mathematical operation
-// let person = 3
-// let donut = 12
-
-// let per = donut / person
-// console.log(per)
-
-// example of function #1 called in HTML
-// function increment() {
-//     console.log("The button was clicked")
-// }
-
-// example of function #2 called in JS file
-// console.log("First Game")
-// function countdown() {
-//     console.log("Countdown Start.....")
-//     console.log(5)
-//     console.log(4)
-//     console.log(3)
-//     console.log(2)
-//     console.log(1)
-//     console.log("Race Start!")
-// }
-
-// countdown()
-
-// console.log("Second Game")
-// countdown()
-
-// Combining string
-// let username = "Aisyah!"
-// let message = "You have 3 notifications"
-
-// console.log(message + ", " + username)
-
-// can store it in variable as well
-// let u = message + ", " + username
-
-// You can do this:
-// let welcomeEl = document.getElementById("welcome-el")
-
-// let name = "Per Harald Borgen"
-// let greeting = "Welcome back "
-
-// welcomeEl.innerText = greeting + name
-
-// // Add an emoji to the end! 👋
-// // WRITE YOUR CODE BELOW HERE
-// // HINT: count = count + 1
-
-// welcomeEl.innerText += "👋"
-
 // FOR CARD 1
 let countEl = document.getElementById("count-el")
 let saveEl = document.getElementById("save-el")
@@ -108,4 +46,104 @@ function divide() {
 function multiply() {
     sum = num1 * num2
     sumEL.innerText = "Answer: " + sum
+}
+
+// FOR CARD 3
+
+// Initial State
+let cards = []
+let sumCard = 0
+let hasBlackJack = false
+let isAlive = false
+let message = ""
+
+// Grab HTML element
+// you can use querySelector but it select CSS element instead (prob usesful for hide/show div) 
+// let sumEl = document.querySelector("#sum3-el")
+let messageEl = document.getElementById("message-el")
+let sum3El = document.getElementById("sum3-el")
+let card3El = document.getElementById("cards3-el")
+let resultEl = document.getElementById("result-el")
+
+
+// OBJECT
+let player = {
+    name: "Alex",
+    chips: 150,
+    sayHello: function () {
+        console.log("Hello!")
+    }
+}
+
+player.sayHello()
+
+let playerEl = document.getElementById("player-el")
+playerEl.textContent = player.name + ": $" + player.chips
+
+function startGame() {
+    let firstCard = getRandomCard()
+    let secondCard = getRandomCard()
+    cards = [firstCard, secondCard]
+    sumCard = firstCard + secondCard
+    isAlive = true
+    renderGame();
+}
+
+// == means it will ignore the type. Example: "100" is equal to 100
+// === means it wont ignore the type. Example: "100" is not equal to 100
+function renderGame() {
+    card3El.textContent = "Cards: "
+    for (let c = 0; c < cards.length; c++) {
+        card3El.textContent += cards[c] + " "
+    }
+    sum3El.textContent = "Sum: " + sumCard
+    if (sumCard <= 20) {
+        message = "Draw a new card. 🙂"
+    } else if (sumCard === 21) {
+        hasBlackJack = true
+        message = "You got a blackjack! 🥳"
+        result()
+    } else {
+        isAlive = false
+        message = "You are out of the game 😭"
+        result()
+    }
+
+    messageEl.textContent = message
+}
+
+function newCard() {
+    if (isAlive && !hasBlackJack) {
+        let newCard = getRandomCard()
+        sumCard += newCard
+        cards.push(newCard)
+        console.log(cards)
+        renderGame()
+    }
+}
+
+function getRandomCard() {
+    let rand = Math.floor(Math.random() * 13) + 1
+    console.log(rand)
+
+    if (rand === 1) { // if 1     -> return 11
+        return 11
+    } else if (rand > 10) { // if 11-13 -> return 10
+        return 10
+    } else {
+        return rand
+    }
+}
+
+function result() {
+    let res = 0
+    if (hasBlackJack) {
+        res = player.chips + 5
+        resultEl.textContent = "Wohoo! You gained $5"
+        playerEl.textContent = player.name + ": $" + res
+    } else if (!isAlive) {
+        res = player.chips - 5
+        resultEl.textContent = "You lost $5"
+        playerEl.textContent = player.name + ": $" + res
+    }
 }
